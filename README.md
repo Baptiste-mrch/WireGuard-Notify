@@ -42,7 +42,7 @@ Description=WireGuard VPN Notification Service
 After=network.target
 
 [Service]
-ExecStart=/root/wireguard_notify.sh
+ExecStart=/root/wireguard-notify.sh
 Restart=always
 User=root
 WorkingDirectory=/root

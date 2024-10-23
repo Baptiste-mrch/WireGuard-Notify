@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Activer le verbose de l'application pour la debugguer
-DEBUG=false
+DEBUG=true
 
 # URL du webhook Home Assistant
 WEBHOOK_URL="http://homeassistant.local:8123/api/webhook/WEBHOOKID"

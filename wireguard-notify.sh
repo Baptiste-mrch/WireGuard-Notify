@@ -57,7 +57,11 @@ while true; do
     # Comparer les endpoints actuels avec ceux precedemment enregistres
     if [ "$current_endpoints" != "$previous_endpoints" ]; then
         # Identifier les nouvelles connexions
-        new_connections=$(diff <(echo $previous_endpoints) <(echo $current_endpoints) | grep ">" | awk '{print $2, $3}')
+        new_connections=$(diff <(echo "$previous_endpoints") <(echo "$current_endpoints") | grep ">" | awk '{print $2, $3}')
+
+        [[ "$DEBUG" == true ]] && echo "[diff]" $(diff <(echo "$previous_endpoints") <(echo "$current_endpoints"))
+        [[ "$DEBUG" == true ]] && echo "[diff]" $(diff <(echo "$previous_endpoints") <(echo "$current_endpoints") | grep ">" | awk '{print $2, $3}')
+        [[ "$DEBUG" == true ]] && echo "[new_connections]" "$new_connections"
 
         client_pubkey=$(echo $new_connections | awk '{print $1}')
         client_ip=$(echo $new_connections | awk '{print $2}' | cut -d':' -f1)

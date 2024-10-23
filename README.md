@@ -65,8 +65,8 @@ sudo systemctl start wireguard-notify.service
 On my case, I choose to receive the notification with Home Assistant. For this purpose, I created a new automation, and choose "Webhook" as the trigger. From there a webhook id is generated.
 <br> <br> ![image](https://github.com/user-attachments/assets/2afe9128-d3b7-46f4-8377-207d5c04cdc6)<br>
 You need to paste this id after your home assistant url : `http://homeassistant.local:8123/api/webhook/**WEBHOOKID**`
-<br>
-You will gets the notification values with the following template
+<br><br>
+You will gets the notification values with the following template :
 ```yaml
 {{ trigger.json.client_ip }}
 {{ trigger.json.client_ipinfo }}

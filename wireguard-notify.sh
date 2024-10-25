@@ -10,7 +10,7 @@ CLIENTS_FILE="/etc/wireguard/configs/clients.txt"
 # Delai de verification
 DELAY=5
 
-[[ "$DEBUG" == true ]] && echo "[debug]" "Lancer (ou relancer) une connexion WireGuard pour déclencher la notification..."
+[[ "$DEBUG" == true ]] && echo "[debug]" "Lancer (ou relancer) une connexion WireGuard pour declencher la notification..."
 
 # Fonction represantant la commande pour surveiller les connexions WireGuard
 check_connections() {
@@ -69,11 +69,24 @@ while true; do
         [[ "$DEBUG" == true ]] && echo "[debug] ip : " $client_ip
         [[ "$DEBUG" == true ]] && echo "[debug] key : " $client_pubkey
 
-        # Déclencher la fonction de notification
-        send_notification $client_ip $client_pubkey
+        # Verifier si l'adresse IP est une adresse valable IPv4
+        if [[ $client_ip =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}$ ]]; then
+            # Verifie que chaque partie de l'adresse IP est entre 0 et 255
+            IFS='.' read -r -a octets <<< "$client_ip"
+            if [[ ${octets[0]} -le 255 && ${octets[1]} -le 255 && ${octets[2]} -le 255 && ${octets[3]} -le 255 ]]; then
+                # Action a executer si la variable est une adresse IP valide
+                [[ "$DEBUG" == true ]] && echo "[ip ok] ip valide, execution de la fonction de notification"
+                # Declencher la fonction de notification
+                send_notification $client_ip $client_pubkey
+                # Mettre a jour les connexions precedentes
+                previous_endpoints=$current_endpoints
+            else
+                [[ "$DEBUG" == true ]] && echo "[ip non ok] ip non valide, pas de notification"
+            fi
+        else
+            [[ "$DEBUG" == true ]] && echo "[ip non ok] pas d'adresse ip, pas de notification"
+        fi
 
-        # Mettre a jour les connexions precedentes
-        previous_endpoints=$current_endpoints
     fi
 
     # Attendre quelques secondes avant de verifier a nouveau

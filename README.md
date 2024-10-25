@@ -110,7 +110,7 @@ mode: single
 ```
 With this notify action, I can open the ipinfo website with the IP address that has just been connected by pressing on it or by opening the action menu of the notification (long press on iPhone)
 <br><br>
-<img src="https://github.com/user-attachments/assets/8771b464-da08-4449-9926-0f238421ccfd" width="60%" height="40%">
+<img src="https://github.com/user-attachments/assets/8771b464-da08-4449-9926-0f238421ccfd" width="75%" height="60%">
 
 # Troubleshooting
 In case this service didn't work, firstly try to restart the service
